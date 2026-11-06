@@ -1,0 +1,11 @@
+export interface PaginatedResult<T>{
+    data: T[];
+    meta: {
+        page: number;
+        limit: number;
+        totalItems: number;
+        totalPages: number;
+        hasNextPages: boolean;
+        hasPrevPage: boolean;
+    }
+}

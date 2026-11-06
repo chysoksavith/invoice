@@ -5,9 +5,17 @@
 .nitro
 .cache
 dist
+frontend/.output
+frontend/.data
+frontend/.nuxt
+frontend/.nitro
+frontend/.cache
+frontend/dist
 
 # Node dependencies
 node_modules
+frontend/node_modules
+backend/node_modules
 
 # Logs
 logs

@@ -1,22 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Index,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  name: string
-
+  @Index('idx_users_email', { unique: true })
   @Column({ type: 'varchar', length: 255, unique: true })
-  email: string
+  email: string;
 
-  @Column({ type: 'varchar', length: 255, select: false })
-  password: string
+  @Column({ name: 'password_hash', type: 'varchar', length: 255, select: false })
+  passwordHash: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp', nullable: true })
-  created_at: Date
+  @Column({ name: 'full_name', type: 'varchar', length: 255 })
+  fullName: string;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
-  updated_at: Date
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  phone: string | null;
+
+  @Column({ name: 'is_active', type: 'boolean', default: true })
+  isActive: boolean;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
 }
