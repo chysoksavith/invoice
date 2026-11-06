@@ -24,9 +24,9 @@ import { AuthModule } from './modules/auth/auth.module.js'
         port: config.get<number>('database.port', 5432),
         username: config.get<string>('database.username', 'savit'),
         password: config.get<string>('database.password', '12345'),
-        database: config.get<string>('database.database', 'mlv8'),
+        database: config.get<string>('database.database', 'nuxt'),
         entities: [User],
-        synchronize: false, // Keep false to preserve existing schema & data
+        synchronize: config.get<boolean>('database.synchronize', true), // Auto-creates tables in dev
       }),
     }),
     UsersModule,

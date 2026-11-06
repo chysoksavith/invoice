@@ -7,6 +7,14 @@ export default defineNuxtConfig({
 
   srcDir: 'src',
 
+  app: {
+    head: {
+      htmlAttrs: {
+        'data-theme': 'light'
+      }
+    }
+  },
+
   css: ['~/assets/css/main.css'],
 
   vite: {
