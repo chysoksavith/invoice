@@ -73,6 +73,20 @@ All AI agents working in this repository must operate under the discipline and c
      ```
    - Ensure zero build errors and zero linter warnings.
 
+7. **Read Before You Write (Token Discipline)**:
+   - Before creating ANY new file, check whether it already exists:
+     ```bash
+     find backend/src -name "*.ts" | xargs grep -l "<keyword>"
+     ```
+   - Before writing a new utility, read `backend/src/common/utils/index.ts` to see what is already exported.
+   - Before modifying a service or entity, read the full file first. Never assume its contents.
+   - If a module already has a file you are about to create, read it first and **extend** it rather than replacing it.
+
+8. **No Speculative Code**:
+   - Do not generate `// TODO`, placeholder methods, or empty stub functions.
+   - Every method written must be fully implemented and testable.
+   - If requirements are unclear, ask a clarifying question rather than leaving incomplete code.
+
 ---
 
 ## 2. Agent Skills Catalog
@@ -86,6 +100,51 @@ When performing tasks in this workspace, refer to and invoke these specialized s
 
 ---
 
-## 3. Reference Files
+## 3. Git Commit Conventions
+
+All commits made by agents MUST follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) spec:
+
+```
+<type>(<scope>): <short description in imperative mood>
+
+[optional body]
+[optional footer]
+```
+
+**Allowed types:**
+
+| Type | Use When |
+|---|---|
+| `feat` | Adding a new feature or module |
+| `fix` | Fixing a bug |
+| `refactor` | Restructuring code without behavior change |
+| `chore` | Scaffolding, config, non-code files |
+| `test` | Adding or fixing tests |
+| `docs` | Updating documentation or AGENTS.md |
+| `perf` | Performance improvements |
+| `migration` | Adding a TypeORM migration |
+
+**Scope = the affected module** (e.g., `products`, `invoices`, `auth`, `common`, `tenant`).
+
+**Examples:**
+```
+feat(products): add CRUD module with multi-tenant isolation
+fix(invoices): scope findAll query to tenantId
+refactor(common): extract money rounding into utils/money.ts
+test(slugify): add edge case tests for Khmer characters
+migration(products): add soft-delete deleted_at column
+chore: wire ProductsModule into AppModule
+```
+
+**Rules:**
+- Subject line must be lowercase and use the imperative mood ("add" not "added").
+- Subject line must be 72 characters or fewer.
+- Never commit with `--no-verify`.
+- Never auto-commit or push without explicit user instruction.
+
+---
+
+## 4. Reference Files
 - Master Architecture & System Design: [ACCOUNTING_SYSTEM_DESIGN.md](file:///home/savit/Learning/my-app/docs/ACCOUNTING_SYSTEM_DESIGN.md)
 - Backend Agent Rules: [backend/AGENTS.md](file:///home/savit/Learning/my-app/backend/AGENTS.md)
+- Frontend Agent Rules: [src/AGENTS.md](file:///home/savit/Learning/my-app/src/AGENTS.md)

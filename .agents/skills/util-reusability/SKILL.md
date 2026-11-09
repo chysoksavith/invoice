@@ -26,6 +26,40 @@ Before writing logic directly in a service or controller, evaluate against these
 
 ---
 
+## 1a. Live Utility Registry
+
+> [!IMPORTANT]
+> **Always read this table before creating a new utility.** If your utility already exists here, import it — do not duplicate it. Update this table whenever you add a new utility.
+
+| File | Exported Function(s) | Purpose |
+|---|---|---|
+| `utils/paginate.ts` | `paginate(repo, queryDto, options)` | TypeORM repository/QB pagination returning `PaginatedResult<T>` |
+| `utils/slugify.ts` | `slugify(text)` | URL-safe slug generation (supports Khmer/Latin text) |
+
+**Common Decorators:**
+
+| File | Exported Symbol | Purpose |
+|---|---|---|
+| `decorators/current-tenant.decorator.ts` | `@CurrentTenant()`, `@CurrentTenantId()` | Extract tenant from request context |
+| `decorators/current-user.decorator.ts` | `@CurrentUser()` | Extract authenticated user from JWT |
+
+**Common Guards:**
+
+| File | Guard Class | Purpose |
+|---|---|---|
+| `guards/jwt-auth.guard.ts` | `JwtAuthGuard` | Verifies Bearer JWT token |
+| `guards/tenant.guard.ts` | `TenantGuard` | Ensures tenant context is set on request |
+
+**Common DTOs / Interfaces:**
+
+| File | Symbol | Purpose |
+|---|---|---|
+| `dto/pagination-query.dto.ts` | `PaginationQueryDto` | Base DTO with `page` and `limit` fields |
+| `interface/paginated-result.interface.ts` | `PaginatedResult<T>` | Standard paginated response shape |
+| `entities/tenant-base.entity.ts` | `TenantBaseEntity` | Base TypeORM entity with `id`, `tenantId`, `createdAt`, `updatedAt` |
+
+---
+
 ## 2. Requirements for Reusable Utilities
 
 Every utility function in `backend/src/common/utils/` must meet these 5 standards:
